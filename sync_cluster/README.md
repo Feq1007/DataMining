@@ -1,6 +1,2 @@
 * Clustering by Synchronization
-
-** Ëã·¨¼ò½é
-Ò»ÖÖ»ùÓÚÍ¬²½µÄ¾ÛÀàËã·¨£¬Í¬²½ÊÇÖ¸ÏàÀàËÆµÄÎïÌåµÄÔË¶¯»áÇ÷ÓÚ
-Ò»ÖÂ£¬¶ø²»Í¬Àà±ðÖ®¼äµÄÎïÌåÔË¶¯ÓÐ½Ï´óµÄ²îÒì£¬ÀûÓÃÍ¬²½µÄÌØÐÔ£¬ÎÒÃÇ¿ÉÒÔºÜÈÝÒ×
-µÄÀ´½â¾ö¾ÛÀàÎÊÌâÒÔ¼°·¢ÏÖÊý¾ÝÖÐµÄ¹ÂÁ¢Öµ¡£ 
+** ç®—æ³•ç®€ä»‹
