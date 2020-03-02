@@ -1,24 +1,26 @@
 import numpy as np
 from math import fabs
 from sklearn import datasets
+from sklearn import preprocessing
+from sklearn.preprocessing import Normalizer
 from scipy.spatial.distance import squareform
 from scipy.spatial.distance import pdist
 
 import numpy as np  # 数组相关的库
 import matplotlib.pyplot as plt  # 绘图库
 
-radius=0.8#寻找邻居的半径
+radius=0.05#寻找邻居的半径
 order_para=0#描述聚类情况，接近1时可结束
 
 #加载数据集，是一个字典类似Java中的map
-lris_df = datasets.load_iris()
+iris = datasets.load_iris()
 
-#步骤一获取数据
-dataset = np.array(lris_df.data[:-1])
+#步骤一获取数据并归一化化处理
+dataset = Normalizer().fit_transform(iris.data)
 N = len(dataset)
 
 #步骤二、三
-while fabs(order_para - 1) > 1e-2:
+while 1 - order_para > 1e-5:
     #euclidean代表欧式距离
     distA=pdist(dataset,metric='euclidean')
     # 将distA数组变成一个矩阵,得到各点间的距离方阵
@@ -41,15 +43,18 @@ while fabs(order_para - 1) > 1e-2:
             neighbors[i[0],i[1],j] = dataset[i[1],j]
     
     #计算order_para
-    res = 0
+    check = 0
     for i in range(N):
-        res += np.sum(np.exp(np.linalg.norm(np.subtract(neighbors[i],dataset[i]))*(-1)))
-    order_para = res / N
+        check += np.sum(np.exp(np.linalg.norm(np.subtract(neighbors[i],dataset[i]))*(-1)))
+    print(check)
+    order_para = check / N
     
     #计算sin
+    res = np.zeros(shape=(N,4))
     for i in range(N):
         if nums[i]!=0:
-            dataset[i] = dataset[i] + np.sum(np.sin(np.subtract(neighbors[i],dataset[i])),axis=0, keepdims=True) / nums[i]
-print(dataset)
-plt.scatter(dataset[:,0],dataset[:,1],alpha=0.6)
-plt.show()
+            res[i] = dataset[i] + np.sum(np.sin(np.subtract(neighbors[i],dataset[i])),axis=0, keepdims=True) / nums[i]
+    dataset = res
+    
+    plt.scatter((dataset[:,0]+dataset[:,1])/2,(dataset[:,2]+dataset[:,3])/2,alpha=0.1,marker='o',norm=0.91)
+    plt.show()
